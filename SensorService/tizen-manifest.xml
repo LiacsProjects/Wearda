@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<manifest xmlns="http://tizen.org/ns/packages" api-version="2.3.1" package="liacs.sensorservice" version="1.0.2">
+    <author email="m.k.van.dijk@liacs.leidenuniv.nl">Liacs, Richard van Dijk</author>
+    <profile name="wearable"/>
+    <service-application appid="liacs.sensorservice" auto-restart="true" exec="sensorservice" multiple="false" nodisplay="true" on-boot="true" taskmanage="true" type="capp">
+        <label>sensorservice</label>
+        <icon>sensorservice.png</icon>
+        <app-control>
+            <operation name="http://tizen.org/appcontrol/operation/send"/>
+            <uri name="file:///usr/share/personid.dat"/>
+            <mime name="text/xml"/>
+        </app-control>
+        <app-control>
+            <operation name="http://tizen.org/appcontrol/operation/launch_on_event"/>
+            <uri name="event://tizen.system.event.boot_completed"/>
+            <mime name="application/xml"/>
+        </app-control>
+        <metadata key="http://tizen.org/metadata/background-category/sensor"/>
+        <metadata key="http://tizen.org/metadata/background-category/location"/>
+    </service-application>
+    <privileges>
+        <privilege>http://tizen.org/privilege/appmanager.launch</privilege>
+        <privilege>http://tizen.org/privilege/window.priority.set</privilege>
+        <privilege>http://tizen.org/privilege/location</privilege>
+        <privilege>http://tizen.org/privilege/alarm.get</privilege>
+        <privilege>http://tizen.org/privilege/haptic</privilege>
+        <privilege>http://tizen.org/privilege/display</privilege>
+        <privilege>http://tizen.org/privilege/alarm.set</privilege>
+        <privilege>http://tizen.org/privilege/power</privilege>
+    </privileges>
+    <feature name="http://tizen.org/feature/sensor.accelerometer">true</feature>
+    <feature name="http://tizen.org/feature/location.gps">true</feature>
+    <feature name="http://tizen.org/feature/location.wps">true</feature>
+    <feature name="http://tizen.org/feature/sensor.barometer">true</feature>
+    <feature name="http://tizen.org/feature/sensor.gyroscope">true</feature>
+    <feature name="http://tizen.org/feature/location">true</feature>
+</manifest>

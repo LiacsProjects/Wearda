@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<manifest xmlns="http://tizen.org/ns/packages" api-version="2.3.1" package="liacs.sensorapplication" version="1.0.0">
+    <author email="m.k.van.dijk@liacs.leidenuniv.nl" href="http://liacs.leidenuniv.nl">Liacs, Richard van Dijk</author>
+    <profile name="wearable"/>
+    <ui-application appid="liacs.sensorapplication" exec="sensorapplication" multiple="false" nodisplay="false" taskmanage="true" type="capp">
+        <label>Sensors</label>
+        <icon>neural-head.jpg</icon>
+        <app-control>
+            <operation name="http://tizen.org/appcontrol/operation/send"/>
+        </app-control>
+    </ui-application>
+    <privileges>
+        <privilege>http://tizen.org/privilege/appmanager.launch</privilege>
+    </privileges>
+</manifest>

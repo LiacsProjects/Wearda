@@ -1,0 +1,11 @@
+APPNAME = sensorapplication
+
+type = app
+profile = wearable-2.3.1
+
+USER_SRCS = src/sensorapplication.c
+USER_DEFS =
+USER_INC_DIRS = inc
+USER_OBJS =
+USER_LIBS =
+USER_EDCS =
