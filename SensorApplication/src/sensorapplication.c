@@ -1,7 +1,17 @@
 //
-// Copyright Leiden University, Liacs 2021
+// Copyright:
 //
-// Author: Richard M.K. van Dijk, m.k.van.dijk@liacs.leidenuniv.nl
+//   Leiden University,
+//   Faculty of Math and Natural Sciences,
+//   Leiden Institute of Advanced Computer Science (LIACS)
+//   Snellius building | Niels Bohrweg 1 | 2333 CA Leiden
+//   The Netherlands
+//
+// Author:
+//
+//   Richard M.K. van Dijk
+//   Research sofware engineer
+//   M: m.k.van.dijk@liacs.leidenuniv.nl
 //
 
 #include "sensorapplication.h"
@@ -13,12 +23,12 @@
  */
 
 typedef struct appdata {
-	Evas_Object *win;
-	Evas_Object *conform;
-	Evas_Object *box;
-	Evas_Object *spinner_person_id;
-	Evas_Object *button_restart;
-	Evas_Object *button_clean;
+    Evas_Object *win;
+    Evas_Object *conform;
+    Evas_Object *box;
+    Evas_Object *spinner_person_id;
+    Evas_Object *button_restart;
+    Evas_Object *button_clean;
 } appdata_s;
 
 float g_person_id = 0;
@@ -32,7 +42,7 @@ float g_person_id = 0;
 static void
 launch_sensor_service()
 {
-	int result;
+    int result;
     app_control_h app_control;
 
     app_control_create(&app_control);
@@ -54,7 +64,7 @@ launch_sensor_service()
 static void
 terminate_sensor_service()
 {
-	int result;
+    int result;
     app_control_h app_control;
 
     app_control_create(&app_control);
@@ -91,7 +101,7 @@ terminate_sensor_service()
 static void
 send_person_identifier_to_service(unsigned int personid)
 {
-	int result = -1;
+    int result = -1;
     app_control_h app_control;
     char personid_string[32];
 
@@ -110,7 +120,7 @@ send_person_identifier_to_service(unsigned int personid)
 
     app_control_destroy(app_control);
 
-	return;
+    return;
 }
 
 /**
@@ -131,7 +141,7 @@ send_person_identifier_to_service(unsigned int personid)
 static void
 send_delete_all_sensor_files_to_service()
 {
-	int result = -1;
+    int result = -1;
     app_control_h app_control;
     const char *delete_string = "clean";
 
@@ -149,7 +159,7 @@ send_delete_all_sensor_files_to_service()
 
     app_control_destroy(app_control);
 
-	return;
+    return;
 }
 
 /**
@@ -163,7 +173,7 @@ win_delete_request_cb(void *data, Evas_Object *obj, void *event_info)
 {
     dlog_print(DLOG_INFO, LOG_TAG, "Delete request call back\n");
 
-	ui_app_exit();
+    ui_app_exit();
 }
 
 static void
@@ -171,7 +181,7 @@ win_back_cb(void *data, Evas_Object *obj, void *event_info)
 {
     dlog_print(DLOG_INFO, LOG_TAG, "Back button pressed call back\n");
 
-	ui_app_exit();
+    ui_app_exit();
 }
 
 /**
@@ -183,7 +193,7 @@ win_back_cb(void *data, Evas_Object *obj, void *event_info)
 static void
 spinner_value_change_cb(void *data EINA_UNUSED, Evas_Object *obj EINA_UNUSED, void *event_info EINA_UNUSED)
 {
-	g_person_id = elm_spinner_value_get(obj);
+    g_person_id = elm_spinner_value_get(obj);
 
     dlog_print(DLOG_INFO, LOG_TAG, "Spinner in focus of %03d\n", (int)g_person_id);
 }
@@ -210,7 +220,7 @@ button_restart_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 
     sleep(1);
 
-	ui_app_exit();
+    ui_app_exit();
 }
 
 int g_clean_obstacle_counter = 0;
@@ -220,8 +230,8 @@ button_clean_clicked_cb(void *data, Evas_Object *obj, void *event_info)
     dlog_print(DLOG_INFO, LOG_TAG, "Button clean clicked %d\n", g_clean_obstacle_counter);
 
     if(g_clean_obstacle_counter < 2) {
-		g_clean_obstacle_counter++;
-		return;
+	    g_clean_obstacle_counter++;
+	    return;
     }
 
     g_clean_obstacle_counter = 0;
@@ -229,63 +239,63 @@ button_clean_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 
     sleep(1);
 
-	ui_app_exit();
+    ui_app_exit();
 }
 
 static void
 create_base_gui(appdata_s *ad)
 {
-	// Define Window and box
-	ad->win = elm_win_util_standard_add(PACKAGE, PACKAGE);
-	elm_win_autodel_set(ad->win, EINA_TRUE);
+    // Define Window and box
+    ad->win = elm_win_util_standard_add(PACKAGE, PACKAGE);
+    elm_win_autodel_set(ad->win, EINA_TRUE);
 
-	if (elm_win_wm_rotation_supported_get(ad->win)) {
-		int rots[4] = { 0, 90, 180, 270 };
-		elm_win_wm_rotation_available_rotations_set(ad->win, (const int *)(&rots), 4);
-	}
+    if (elm_win_wm_rotation_supported_get(ad->win)) {
+        int rots[4] = { 0, 90, 180, 270 };
+        elm_win_wm_rotation_available_rotations_set(ad->win, (const int *)(&rots), 4);
+    }
 
-	evas_object_smart_callback_add(ad->win, "delete,request", win_delete_request_cb, NULL);
-	eext_object_event_callback_add(ad->win, EEXT_CALLBACK_BACK, win_back_cb, ad);
+    evas_object_smart_callback_add(ad->win, "delete,request", win_delete_request_cb, NULL);
+    eext_object_event_callback_add(ad->win, EEXT_CALLBACK_BACK, win_back_cb, ad);
 
-	ad->box = elm_box_add(ad->win);
-	evas_object_show(ad->box);
+    ad->box = elm_box_add(ad->win);
+    evas_object_show(ad->box);
 
-	// Define a spinner component, part of the box
-	ad->spinner_person_id = elm_spinner_add(ad->win);
-	elm_object_style_set(ad->spinner_person_id, "vertical");
-	elm_spinner_interval_set(ad->spinner_person_id, 0.1);
-	elm_spinner_step_set(ad->spinner_person_id, 1);
-	elm_spinner_label_format_set(ad->spinner_person_id, "%03d");
-	elm_spinner_min_max_set(ad->spinner_person_id, 0, 999);
-	evas_object_size_hint_weight_set(ad->spinner_person_id, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(ad->spinner_person_id, EVAS_HINT_FILL, 0.5);
-	elm_spinner_editable_set(ad->spinner_person_id, EINA_TRUE);
-	evas_object_smart_callback_add(ad->spinner_person_id, "unfocused", spinner_value_change_cb, NULL);
-	elm_box_pack_start(ad->box, ad->spinner_person_id);
-	evas_object_show(ad->spinner_person_id);
+    // Define a spinner component, part of the box
+    ad->spinner_person_id = elm_spinner_add(ad->win);
+    elm_object_style_set(ad->spinner_person_id, "vertical");
+    elm_spinner_interval_set(ad->spinner_person_id, 0.1);
+    elm_spinner_step_set(ad->spinner_person_id, 1);
+    elm_spinner_label_format_set(ad->spinner_person_id, "%03d");
+    elm_spinner_min_max_set(ad->spinner_person_id, 0, 999);
+    evas_object_size_hint_weight_set(ad->spinner_person_id, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+    evas_object_size_hint_align_set(ad->spinner_person_id, EVAS_HINT_FILL, 0.5);
+    elm_spinner_editable_set(ad->spinner_person_id, EINA_TRUE);
+    evas_object_smart_callback_add(ad->spinner_person_id, "unfocused", spinner_value_change_cb, NULL);
+    elm_box_pack_start(ad->box, ad->spinner_person_id);
+    evas_object_show(ad->spinner_person_id);
 
-	// Define the start button
-	ad->button_restart = elm_button_add(ad->win);
-	elm_object_style_set(ad->button_restart, "vertical");
+    // Define the start button
+    ad->button_restart = elm_button_add(ad->win);
+    elm_object_style_set(ad->button_restart, "vertical");
     elm_object_part_text_set(ad->button_restart, NULL, "RESTART");
     evas_object_size_hint_weight_set(ad->button_restart, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
     evas_object_size_hint_align_set(ad->button_restart, EVAS_HINT_FILL, 0.5);
-	elm_box_pack_end(ad->box, ad->button_restart);
-	evas_object_smart_callback_add(ad->button_restart, "clicked", button_restart_clicked_cb, NULL);
+    elm_box_pack_end(ad->box, ad->button_restart);
+    evas_object_smart_callback_add(ad->button_restart, "clicked", button_restart_clicked_cb, NULL);
     evas_object_show(ad->button_restart);
 
-	// Define the stop button
-	ad->button_clean = elm_button_add(ad->win);
-	elm_object_style_set(ad->button_clean, "vertical");
+    // Define the stop button
+    ad->button_clean = elm_button_add(ad->win);
+    elm_object_style_set(ad->button_clean, "vertical");
     elm_object_part_text_set(ad->button_clean, NULL, "CLEAN");
     evas_object_size_hint_weight_set(ad->button_clean, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
     evas_object_size_hint_align_set(ad->button_clean, EVAS_HINT_FILL, 0.5);
-	elm_box_pack_end(ad->box, ad->button_clean);
-	evas_object_smart_callback_add(ad->button_clean, "clicked", button_clean_clicked_cb, NULL);
+    elm_box_pack_end(ad->box, ad->button_clean);
+    evas_object_smart_callback_add(ad->button_clean, "clicked", button_clean_clicked_cb, NULL);
     evas_object_show(ad->button_clean);
 
 	/* Show window after base gui is set up */
-	evas_object_show(ad->win);
+    evas_object_show(ad->win);
 }
 
 
@@ -298,53 +308,53 @@ create_base_gui(appdata_s *ad)
 static bool
 app_create(void *data)
 {
-	dlog_print(DLOG_INFO, LOG_TAG, "SensorApplication created");
+    dlog_print(DLOG_INFO, LOG_TAG, "SensorApplication created");
 
-	appdata_s *ad = data;
+    appdata_s *ad = data;
 
-	create_base_gui(ad);
+    create_base_gui(ad);
 
-	return true;
+    return true;
 }
 
 static void
 app_control(app_control_h app_control, void *data)
 {
-	dlog_print(DLOG_INFO, LOG_TAG, "SensorApplication controlled");
+    dlog_print(DLOG_INFO, LOG_TAG, "SensorApplication controlled");
 
-	launch_sensor_service();
+    launch_sensor_service();
 }
 
 static void
 app_pause(void *data)
 {
-	dlog_print(DLOG_INFO, LOG_TAG, "SensorApplication paused");
+    dlog_print(DLOG_INFO, LOG_TAG, "SensorApplication paused");
 }
 
 static void
 app_resume(void *data)
 {
-	dlog_print(DLOG_INFO, LOG_TAG, "SensorApplication resumed");
+    dlog_print(DLOG_INFO, LOG_TAG, "SensorApplication resumed");
 }
 
 static void
 app_terminate(void *data)
 {
-	dlog_print(DLOG_INFO, LOG_TAG, "SensorApplication terminated");
+    dlog_print(DLOG_INFO, LOG_TAG, "SensorApplication terminated");
 }
 
 static void
 ui_app_low_battery(app_event_info_h event_info, void *user_data)
 {
-	dlog_print(DLOG_INFO, LOG_TAG, "SensorApplication low battery");
-	return;
+    dlog_print(DLOG_INFO, LOG_TAG, "SensorApplication low battery");
+    return;
 }
 
 static void
 ui_app_low_memory(app_event_info_h event_info, void *user_data)
 {
-	dlog_print(DLOG_INFO, LOG_TAG, "SensorApplication low memory");
-	return;
+    dlog_print(DLOG_INFO, LOG_TAG, "SensorApplication low memory");
+    return;
 }
 
 /**
@@ -356,25 +366,25 @@ ui_app_low_memory(app_event_info_h event_info, void *user_data)
 int
 main(int argc, char *argv[])
 {
-	appdata_s ad = {0,};
-	int ret = 0;
+    appdata_s ad = {0,};
+    int ret = 0;
 
-	ui_app_lifecycle_callback_s event_callback = {0,};
-	app_event_handler_h handlers[5] = {NULL, };
+    ui_app_lifecycle_callback_s event_callback = {0,};
+    app_event_handler_h handlers[5] = {NULL, };
 
-	event_callback.create = app_create;
-	event_callback.terminate = app_terminate;
-	event_callback.pause = app_pause;
-	event_callback.resume = app_resume;
-	event_callback.app_control = app_control;
+    event_callback.create = app_create;
+    event_callback.terminate = app_terminate;
+    event_callback.pause = app_pause;
+    event_callback.resume = app_resume;
+    event_callback.app_control = app_control;
 
-	ui_app_add_event_handler(&handlers[APP_EVENT_LOW_BATTERY], APP_EVENT_LOW_BATTERY, ui_app_low_battery, &ad);
-	ui_app_add_event_handler(&handlers[APP_EVENT_LOW_MEMORY], APP_EVENT_LOW_MEMORY, ui_app_low_memory, &ad);
+    ui_app_add_event_handler(&handlers[APP_EVENT_LOW_BATTERY], APP_EVENT_LOW_BATTERY, ui_app_low_battery, &ad);
+    ui_app_add_event_handler(&handlers[APP_EVENT_LOW_MEMORY], APP_EVENT_LOW_MEMORY, ui_app_low_memory, &ad);
 
-	ret = ui_app_main(argc, argv, &event_callback, &ad);
-	if (ret != APP_ERROR_NONE) {
-		dlog_print(DLOG_ERROR, LOG_TAG, "app_main() is failed. err = %d", ret);
-	}
+    ret = ui_app_main(argc, argv, &event_callback, &ad);
+    if (ret != APP_ERROR_NONE) {
+        dlog_print(DLOG_ERROR, LOG_TAG, "app_main() is failed. err = %d", ret);
+    }
 
-	return ret;
+    return ret;
 }
