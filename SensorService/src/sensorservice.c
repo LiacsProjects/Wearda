@@ -409,10 +409,6 @@ write_configuration_file()
     fprintf(fd, "\n");
     fprintf(fd, "Notes:\n");
     fprintf(fd, " Lorentz Center @ Snellius Leiden, latitude %2.6f longitude %2.6f\n", DEFAULT_BASE_LATITUDE, DEFAULT_BASE_LONGITUDE);
-    fprintf(fd, " Vossenberg @ Kaatsheuvel, latitude 51.654439 longitude 5.047266\n");
-    fprintf(fd, " Zilkerduinweg 8 @ De Zilk, latitude 52.292638 longitude 4.527435\n");
-    fprintf(fd, " Treslong hof @ Hillegom, latitude 52.298330, longitude 4.583271\n");
-    fprintf(fd, " Maartensheem @ Hillegom, latitude 52.299163, longitude 4.584793\n");
     fprintf(fd, " ...\n");
 
     fclose(fd);
