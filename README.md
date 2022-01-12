@@ -106,3 +106,6 @@ Here you can read about the sensors, scroll down until you passed the API descri
 
 https://docs.tizen.org/application/native/guides/location-sensors/device-sensors/
 
+# Related publications
+
+https://www.universiteitleiden.nl/en/news/2021/11/improving-the-environment-of-people-with-dementia-with-the-help-of-new-software
