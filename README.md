@@ -4,7 +4,7 @@
 
 As part of the Dementia project at Liacs, Leiden University, we developed the WEARDA package: an app and back ground service to capture sensor data with the Samsung Gear Fit2 Pro wearable running on Tizen OS version 2.3.1:13. This OS is developed by Samsung and is based on the Linux OS.
 
-For a nice introduction of the WEARDA package, please see the TizenPaper.pdf in this repository. 
+For a nice introduction of the WEARDA package, please see the "WEARDA software paper.pdf" in this repository. 
 
 For installation of the development environment, installation of the WEARDA package, remarks how to use the applications and remarks about the Samsung certificates, see below. This information can also be found in the UserManual.pdf added to this repository as well.
 
@@ -106,3 +106,6 @@ Here you can read about the sensors, scroll down until you passed the API descri
 
 https://docs.tizen.org/application/native/guides/location-sensors/device-sensors/
 
+# Related publications
+
+https://www.universiteitleiden.nl/en/news/2021/11/improving-the-environment-of-people-with-dementia-with-the-help-of-new-software
