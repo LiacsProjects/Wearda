@@ -1,3 +1,5 @@
+[![FAIR checklist badge](https://fairsoftwarechecklist.net/badge.svg)](https://fairsoftwarechecklist.net/v0.2?f=31&a=32113&i=31320&r=123)
+
 # WEARDA
 
 # Introduction
